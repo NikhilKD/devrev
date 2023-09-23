@@ -59,7 +59,7 @@ export class SignupComponent {
       this.router.navigate(['dashboard/profile'])
     })
     .catch((error)=>{
-      console.error('Google Sign-In error:', error);
+      
     })
   }
 }
