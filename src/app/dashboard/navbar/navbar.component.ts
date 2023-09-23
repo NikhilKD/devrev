@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit{
   constructor(private router: Router, private cds: DashboardService){
     
   }
-  public navbar = [false, false]
+  public navbar = [false, false, false]
   ngOnInit(): void {
     this.cds.getData().subscribe((res)=>{
       for(let i = 0; i < this.navbar.length; i++){
@@ -24,6 +24,8 @@ export class NavbarComponent implements OnInit{
         this.navbar[0] = true
       }else if(res == '/dashboard/books'){
         this.navbar[1] = true
+      }else if(res == '/dashboard/cart'){
+        this.navbar[2] = true
       }
       
     })

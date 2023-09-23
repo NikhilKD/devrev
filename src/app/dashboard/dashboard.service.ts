@@ -18,4 +18,14 @@ export class DashboardService {
     return this.active.asObservable();
   }
   
+
+  private username = new Subject<string>();
+
+  changeUser(data: string){
+    this.username.next(data);
+  }
+
+  getUsername(){
+    return this.username.asObservable();
+  }
 }

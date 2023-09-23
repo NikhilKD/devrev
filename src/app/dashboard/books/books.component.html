@@ -1,49 +1,197 @@
 <div class="w-full min-h-screen bg-gray-100 pt-16 pl-64">
 
 
-    <div class="p-8 text-sm text-gray-800">
-      <h1 class="text-4xl text-gray-700 font-bold leading-none mb-8">Books</h1>
-  
-  
-      <table class="border w-full text-left shadow-sm">
-        <thead>
-          <tr>
-            <th class="p-3 text-xs text-gray-900 uppercase font-bold tracking-wide"></th>
-            <th class="p-3 text-xs text-gray-900 uppercase font-bold tracking-wide">Customer</th>
-            <th class="p-3 text-xs text-gray-900 uppercase font-bold tracking-wide">Member</th>
-            <th class="p-3 text-xs text-gray-900 uppercase font-bold tracking-wide"></th>
-          </tr>
-        </thead>
-        <tbody class="border rounded bg-white">
-          <tr>
-            <td class="p-3 border" width="50px"></td>
-            <td class="p-3 border">John Smith</td>
-            <td class="p-3 border">Terry Jones</td>
-            <td class="p-3 border"></td>
-          </tr>
-          <tr>
-            <td class="p-3 border"></td>
-            <td class="p-3 border">John Smith</td>
-            <td class="p-3 border">Terry Jones</td>
-            <td class="p-3 border"></td>
-          </tr>
-          <tr>
-            <td class="p-3 border"></td>
-            <td class="p-3 border">John Smith</td>
-            <td class="p-3 border">Terry Jones</td>
-            <td class="p-3 border"></td>
-          </tr>
-          <tr>
-            <td class="p-3 border"></td>
-            <td class="p-3 border">John Smith</td>
-            <td class="p-3 border">Terry Jones</td>
-            <td class="p-3 border"></td>
-          </tr>
-        </tbody>
-      </table>
-  
-  
+  <div class="p-8 text-sm text-gray-800">
+    <div
+      class="flex flex-col items-start justify-between pb-6 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row">
+      <h1 class="text-2xl font-semibold whitespace-nowrap">Books</h1>
+      <h6>0 books found</h6>
     </div>
-  
+    <div >
+      <form action="" class="flex">
+        <input type="text" placeholder="Search Genre" class="w-full px-4 py-3 text-gray-600 rounded-md focus:outline-none" />
+        <input type="submit" class="px-3 bg-purple-800 text-white cursor-pointer" value="Search">
+      </form>
+      <!-- <div style="position: relative;">
+        <div style="position: absolute;top: 0;left: 0; width: 100%; height: 100px;" class="bg-white">
+          <div class="w-full flex justify-between px-6 py-4 hover:bg-slate-50 cursor-pointer">
+            <h5>JK Rollins</h5>
+          </div>
+          <hr>
+          <div class="w-full flex justify-between px-6 py-4 hover:bg-slate-50 cursor-pointer">
+            <h5>Harry Puttar</h5>
+          </div>
+        </div>
+      </div> -->
+    </div>
+    
+    
+    <div class="flex flex-col mt-6">
+      <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+          <div class="overflow-hidden border-b border-gray-200 rounded-md shadow-md">
+            <table class="min-w-full overflow-x-scroll divide-y divide-gray-200">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col"
+                    class=" text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <Select class="w-full px-4 py-3 outline-none">
+                      <option value="">Name</option>
+                      <option value="">JK</option>
+                      <option value="">DSA</option>
+                      <option value="">Maths</option>
+                    </Select>
+                  </th>
+                  <th scope="col"
+                    class=" text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <Select class="w-full px-4 py-3 outline-none">
+                      <option value="">Author</option>
+                      <option value="">JK</option>
+                      <option value="">DSA</option>
+                      <option value="">Maths</option>
+                    </Select>
+                  </th>
+                  <th scope="col"
+                    class=" text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <Select class="w-full px-4 py-3 outline-none">
+                      <option value="">Genre</option>
+                      <option value="">JK</option>
+                      <option value="">DSA</option>
+                      <option value="">Maths</option>
+                    </Select>
+                  </th>
+                  <th scope="col"
+                    class=" text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    <Select class="w-full px-4 py-3 outline-none">
+                      <option value="">Status</option>
+                      <option value="">JK</option>
+                      <option value="">DSA</option>
+                      <option value="">Maths</option>
+                    </Select>
+                  </th>
+                  <th scope="col"
+                    class=" text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+
+                  </th>
+                  <th scope="col"
+                  class=" text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  <Select class="w-full px-4 py-3 outline-none">
+                    <option value="">Year of Publishing</option>
+                    <option value="">JK</option>
+                    <option value="">DSA</option>
+                    <option value="">Maths</option>
+                  </Select>
+                </th>
+                <th scope="col"
+                class=" text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                <Select class="w-full px-4 py-3 outline-none">
+                  <option value="">Sort By</option>
+                  <option value="">Name</option>
+                  <option value="">Copies low to high</option>
+                  <option value="">Copies high to low</option>
+                </Select>
+              </th>
+                </tr>
+              </thead>
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col"
+                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Name
+                  </th>
+                  <th scope="col"
+                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Author
+                  </th>
+                  <th scope="col"
+                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Genre
+                  </th>
+                  <th scope="col"
+                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Status
+                  </th>
+                  <th scope="col"
+                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Copies
+                  </th>
+                  <th scope="col"
+                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                    Year of publishing
+                  </th>
+                  <th scope="col" class="relative px-6 py-3">
+                    <span class="sr-only">Edit</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="">
+                        <div class="text-sm font-medium text-gray-900">Harry Potter</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="">
+                        <div class="text-sm font-medium text-gray-900">JK Rollin</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Fiction</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span
+                      class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
+                      Available
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">24</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">24/12/23</td>
+                  <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Add To Cart</a>
+                  </td>
+                </tr>
+                <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="">
+                        <div class="text-sm font-medium text-gray-900">Harry Potter</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="">
+                        <div class="text-sm font-medium text-gray-900">JK Rollin</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">Fiction</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
+                      Unavailable
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">24</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">24/12/23</td>
+                  <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Add To Cart</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
   </div>
-  
+
+</div>
