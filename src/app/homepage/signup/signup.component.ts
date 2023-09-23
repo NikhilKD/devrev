@@ -4,8 +4,10 @@ import {
 } from '@angular/core';
 import {
   Auth,
+  GoogleAuthProvider,
   createUserWithEmailAndPassword,
-  sendEmailVerification
+  sendEmailVerification,
+  signInWithPopup
 } from '@angular/fire/auth';
 import {
   FormBuilder
@@ -48,5 +50,16 @@ export class SignupComponent {
       });
 
 
+  }
+
+
+  googleSignup(){
+    signInWithPopup(this.auth, new GoogleAuthProvider())
+    .then((result) =>{
+      this.router.navigate(['dashboard/profile'])
+    })
+    .catch((error)=>{
+      console.error('Google Sign-In error:', error);
+    })
   }
 }

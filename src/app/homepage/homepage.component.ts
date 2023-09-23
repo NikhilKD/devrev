@@ -6,7 +6,9 @@ import {
 import {
   Auth,
   signInWithEmailAndPassword,
-  onAuthStateChanged
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup
 } from '@angular/fire/auth';
 import {FormBuilder} from '@angular/forms';
 import { Router } from '@angular/router';
@@ -56,5 +58,15 @@ export class HomepageComponent implements OnInit{
       alert("Login Failed")
     }
 
+  }
+
+  googleLogin(){
+    signInWithPopup(this.auth, new GoogleAuthProvider())
+    .then((result) =>{
+      this.router.navigate(['dashboard/profile'])
+    })
+    .catch((error)=>{
+      console.error('Google Sign-In error:', error);
+    })
   }
 }
