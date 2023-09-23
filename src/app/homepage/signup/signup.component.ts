@@ -56,7 +56,7 @@ export class SignupComponent {
   googleSignup(){
     signInWithPopup(this.auth, new GoogleAuthProvider())
     .then((result) =>{
-      this.router.navigate(['dashboard/profile'])
+      this.router.navigate(['dashboard'])
     })
     .catch((error)=>{
       

@@ -24,7 +24,7 @@ export class HomepageComponent implements OnInit{
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
         if(user.emailVerified){
-          this.router.navigate(['dashboard/profile'])
+          this.router.navigate(['dashboard'])
         }
         
       }
