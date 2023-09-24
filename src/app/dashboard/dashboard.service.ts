@@ -43,12 +43,18 @@ export class DashboardService {
     return querySnapshot
   }
 
-  async sortBook() {
-    const docRef = collection(this.db, "books");
-    const q = query(docRef, orderBy("price"))
-    console.log(q)
+  async sortBook(name:string){
+    const bookRef = collection(this.db, "books");
+    const q = query(bookRef, orderBy(name));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot;
   }
 
+  async getIndividualBook(name:string) {
+    const docRef = doc(this.db, "books", name);
+    const docSnap = await getDoc(docRef);
+    return docSnap;
+  }
   
   
   async addcart(name:string,book:string){
