@@ -59,10 +59,89 @@ export class BooksComponent implements OnInit {
   namefilter = this.fb.group({
     name: ['']
   })
+  
+
+  authorfilter = this.fb.group({
+    author: ['']
+  })
+
+  genrefilter = this.fb.group({
+    genre: ['']
+  })
+
+  yearfilter = this.fb.group({
+    year: ['']
+  })
 
 
 
   ngOnInit(): void {
+
+    this.yearfilter.get('year')?.valueChanges.subscribe((res)=>{
+      if(res == ''){
+        this.showBookData = []
+        for (let i = 0; i < this.show; i++) {
+          this.showBookData.push(this.bookData[i]);
+        }
+      }else{
+        this.ds.getDate(res).then((response)=>{
+          console.log(res);
+          
+          this.showBookData = []
+          response.forEach((doc) => {
+            let obj = {
+              id: doc.id,
+              data: doc.data()
+            }
+            this.showBookData.push(obj);
+          });
+          console.log(this.showBookData);
+          
+        })
+      }
+      
+    })
+
+    this.genrefilter.get('genre')?.valueChanges.subscribe((res)=>{
+      if(res == ''){
+        this.showBookData = []
+        for (let i = 0; i < this.show; i++) {
+          this.showBookData.push(this.bookData[i]);
+        }
+      }else{
+        this.ds.getSubject(String(res)).then((response)=>{
+          this.showBookData = []
+          response.forEach((doc) => {
+            let obj = {
+              id: doc.id,
+              data: doc.data()
+            }
+            this.showBookData.push(obj);
+          });
+        })
+        this.show = this.bookData.length
+      }
+    })
+
+    this.authorfilter.get('author')?.valueChanges.subscribe((res)=>{
+      if(res == ''){
+        this.showBookData = []
+        for (let i = 0; i < this.show; i++) {
+          this.showBookData.push(this.bookData[i]);
+        }
+      }else{
+        this.ds.getAuthor(String(res)).then((response)=>{
+          this.showBookData = []
+          response.forEach((doc) => {
+            let obj = {
+              id: doc.id,
+              data: doc.data()
+            }
+            this.showBookData.push(obj);
+          });
+        })
+      }
+    })
 
     this.namefilter.get('name')?.valueChanges.subscribe((res)=>{
       if(res == ''){

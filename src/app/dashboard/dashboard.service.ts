@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { initializeApp } from "firebase/app";
-import { arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, getFirestore, increment, orderBy, query, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, getFirestore, increment, orderBy, query, updateDoc, where } from "firebase/firestore";
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -55,7 +55,27 @@ export class DashboardService {
     const docSnap = await getDoc(docRef);
     return docSnap;
   }
+
+  async getDate(date:any) {
+    const bookRef = collection(this.db, "books");
+    const q = query(bookRef, where("date","==",date));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot
+  }
   
+  async getAuthor(name:string) {
+    const bookRef = collection(this.db, "books");
+    const q = query(bookRef, where("author","==",name));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot
+  }
+
+  async getSubject(subject:string) {
+    const bookRef = collection(this.db, "books");
+    const q = query(bookRef, where("subject","==",subject));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot
+  }
   
   async addcart(name:string,book:string){
     const temp1 = doc(this.db, "books", book);

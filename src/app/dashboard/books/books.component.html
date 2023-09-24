@@ -43,39 +43,34 @@
                     </form>
                   </th>
                   <th scope="col" class=" text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                    <Select class="w-full px-4 py-3 outline-none">
+                    <form [formGroup]="authorfilter">
+                    <select class="w-full px-4 py-3 outline-none" formControlName="author">
                       <option value="">Author</option>
-                      <option value="">JK</option>
-                      <option value="">DSA</option>
-                      <option value="">Maths</option>
-                    </Select>
+                      <option *ngFor="let book of bookData" value={{book.data.author}}>{{book.data.author}}</option>
+                    </select>
+                  </form>
                   </th>
                   <th scope="col" class=" text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                    <Select class="w-full px-4 py-3 outline-none">
-                      <option value="">Genre</option>
-                      <option value="">JK</option>
-                      <option value="">DSA</option>
-                      <option value="">Maths</option>
-                    </Select>
+                    <form [formGroup]="genrefilter">
+                      <select class="w-full px-4 py-3 outline-none" formControlName="genre">
+                        <option value="">Genre</option>
+                        <option value="Friction">Friction</option>
+                        <option value="Non-Friction">Non-Friction</option>
+                      </select>
+                    </form>
                   </th>
                   <th scope="col" class=" text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                    <Select class="w-full px-4 py-3 outline-none">
-                      <option value="">Status</option>
-                      <option value="">JK</option>
-                      <option value="">DSA</option>
-                      <option value="">Maths</option>
-                    </Select>
                   </th>
                   <th scope="col" class=" text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
 
                   </th>
                   <th scope="col" class=" text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                    <Select class="w-full px-4 py-3 outline-none">
-                      <option value="">Year of Publishing</option>
-                      <option value="">JK</option>
-                      <option value="">DSA</option>
-                      <option value="">Maths</option>
-                    </Select>
+                    <form [formGroup]="yearfilter">
+                      <select class="w-full px-4 py-3 outline-none" formControlName="year">
+                        <option value="">Year of Publishing</option>
+                        <option *ngFor="let book of bookData" [value]="book.data.date">{{book.data.date.toDate().toISOString().split('T')[0]}}</option>
+                      </select>
+                    </form>
                   </th>
                   <th scope="col" class=" text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                     <form [formGroup]="sort" >
@@ -150,7 +145,7 @@
                     </span>
                   </td>
                   <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{book.data.copies}}</td>
-                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{book.data.date}}</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{book.data.date.toDate().toISOString().split('T')[0]}}</td>
                   <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                     <a href="#" class="text-indigo-600 hover:text-indigo-900">Add To Cart</a>
                   </td>
