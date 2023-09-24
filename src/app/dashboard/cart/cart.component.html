@@ -6,9 +6,9 @@
       class="flex flex-col items-start justify-between pb-6 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row">
       <h1 class="text-2xl font-semibold whitespace-nowrap">Cart</h1>
       <div class="space-y-6 md:space-x-2 md:space-y-0">
-        <button target="_blank"
+        <button target="_blank" 
           class="inline-flex items-center justify-center px-4 py-1 space-x-1 bg-purple-800 text-white rounded-md shadow hover:bg-opacity-90">
-          <span>Issue All</span>
+          <span >Issue All</span>
       </button>
       </div>
     </div>
@@ -46,62 +46,37 @@
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
-                <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                <tr *ngFor="let book of cartBooks" class="transition-all hover:bg-gray-100 hover:shadow-lg">
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-center">
                       <div class="">
-                        <div class="text-sm font-medium text-gray-900">Harry Potter</div>
+                        <div class="text-sm font-medium text-gray-900" #bookname>{{book.name}}</div>
                       </div>
                     </div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-center">
                       <div class="">
-                        <div class="text-sm font-medium text-gray-900">JK Rollin</div>
+                        <div class="text-sm font-medium text-gray-900">{{book.author}}</div>
                       </div>
                     </div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">Fiction</div>
+                    <div class="text-sm text-gray-900">{{book.subject}}</div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <span
+                    <span *ngIf="book.copies > 0"
                       class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                      Active
+                      Available
+                    </span>
+                    <span *ngIf="book.copies <= 0"
+                      class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
+                      Unavailable
                     </span>
                   </td>
-                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">24/12/23</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{book.date.toDate().toISOString().split('T')[0]}}</td>
                   <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Remove from cart</a>
-                  </td>
-                </tr>
-                <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex items-center">
-                      <div class="">
-                        <div class="text-sm font-medium text-gray-900">Harry Potter</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex items-center">
-                      <div class="">
-                        <div class="text-sm font-medium text-gray-900">JK Rollin</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">Fiction</div>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <span
-                      class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                      Active
-                    </span>
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">24/12/23</td>
-                  <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Remove from cart</a>
+                    <button  class="text-indigo-600 hover:text-indigo-900" (click)="removefromcart(bookname.innerHTML)">Remove from cart</button>
                   </td>
                 </tr>
               </tbody>

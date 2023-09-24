@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { initializeApp } from "firebase/app";
-import { arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, getFirestore, increment, orderBy, query, updateDoc, where } from "firebase/firestore";
+import { arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, getFirestore, increment, orderBy, query, setDoc, updateDoc, where } from "firebase/firestore";
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -32,6 +32,9 @@ export class DashboardService {
     return this.username.asObservable();
   }
 
+
+  
+
   app = initializeApp(environment.firebase);
   db = getFirestore(this.app);
 
@@ -62,6 +65,8 @@ export class DashboardService {
     const querySnapshot = await getDocs(q);
     return querySnapshot
   }
+
+  
   
   async getAuthor(name:string) {
     const bookRef = collection(this.db, "books");
@@ -78,37 +83,20 @@ export class DashboardService {
   }
   
   async addcart(name:string,book:string){
-    const temp1 = doc(this.db, "books", book);
-    await updateDoc(temp1, {
-      copies: increment(-1)
-    });
-    const docSnap = await getDoc(temp1);
-    let count=docSnap.data()?.['copies'];
-    if(count<=0){
-      await updateDoc(temp1, {
-        status:false
+    const temp = doc(this.db, "users", name);
+    if((await getDoc(temp)).data()===undefined){
+        await setDoc(temp,{
+          books: [book]
+        }) 
+    }else{
+      await updateDoc(temp, {
+        books: arrayUnion(book)
       });
     }
-    const temp = doc(this.db, "users", name);
-    await updateDoc(temp, {
-      books: arrayUnion(book)
-    });
-
   }
 
   async removecart(name:string,book:string){
     const temp = doc(this.db, "users", name);
-    const temp1 = doc(this.db, "books", book);
-    await updateDoc(temp1, {
-      copies: increment(1)
-    });
-    const docSnap = await getDoc(temp1);
-    let count=docSnap.data()?.['copies'];
-    if(count>0){
-      await updateDoc(temp1, {
-        status:true
-      });
-    }
     await updateDoc(temp, {
       books: arrayRemove(book)
     });
@@ -121,4 +109,27 @@ export class DashboardService {
     return docSnap.data()?.['books'];
   }
 
+
+  async issue(name:string){
+    const temp = doc(this.db, "users", name);
+    const docSnap = await getDoc(temp);
+    let issuedbooks=docSnap.data()?.['books'];
+    await updateDoc(temp, {
+      books: [],
+      issue:issuedbooks
+    });
+    for(let i=0;i<issuedbooks.length;i++){
+      const temp1 = doc(this.db, "books", issuedbooks[i]);
+      await updateDoc(temp1, {
+        copies: increment(-1)
+      });
+      const docSnap = await getDoc(temp1);
+      let count=docSnap.data()?.['copies'];
+      if(count<=0){
+        await updateDoc(temp1, {
+          status:false
+        });
+      }
+    }
+  }
 }

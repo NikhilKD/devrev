@@ -1,5 +1,6 @@
 import {
   Component,
+  Inject,
   OnInit
 } from '@angular/core';
 import {
@@ -15,6 +16,10 @@ import {
   FormControl,
   FormGroup
 } from '@angular/forms';
+import {
+  Auth,
+  onAuthStateChanged
+} from '@angular/fire/auth';
 
 
 @Component({
@@ -24,16 +29,19 @@ import {
 })
 export class BooksComponent implements OnInit {
 
-  constructor(private ds: DashboardService, public fb: FormBuilder) {}
+  constructor(private ds: DashboardService, public fb: FormBuilder, @Inject(Auth) private auth: Auth) {}
 
   bookData: any = []
+
+  username: any
+
+  booksFound = 0
 
   show = 15
 
   showBookData: any = []
 
-  sortstates = [
-    {
+  sortstates = [{
       name: 'Name',
       value: 'name'
     },
@@ -59,7 +67,7 @@ export class BooksComponent implements OnInit {
   namefilter = this.fb.group({
     name: ['']
   })
-  
+
 
   authorfilter = this.fb.group({
     author: ['']
@@ -73,20 +81,34 @@ export class BooksComponent implements OnInit {
     year: ['']
   })
 
-
+  addtocart(bookid: string, copies: any) {
+    if (copies > 0) {
+      console.log(this.username)
+      this.ds.addcart(this.username, bookid).then((response) => {
+        alert("Book Added to Cart");
+      })
+    }else{
+      alert("Book Unavailable")
+    }
+  }
 
   ngOnInit(): void {
 
-    this.yearfilter.get('year')?.valueChanges.subscribe((res)=>{
-      if(res == ''){
+    onAuthStateChanged(this.auth, (user) => {
+      this.username = user?.email
+    });
+
+
+    this.yearfilter.get('year')?.valueChanges.subscribe((res) => {
+      if (res == '') {
         this.showBookData = []
         for (let i = 0; i < this.show; i++) {
           this.showBookData.push(this.bookData[i]);
         }
-      }else{
-        this.ds.getDate(res).then((response)=>{
-          console.log(res);
-          
+        this.booksFound = this.bookData.length
+      } else {
+        this.ds.getDate(res).then((response) => {
+
           this.showBookData = []
           response.forEach((doc) => {
             let obj = {
@@ -95,21 +117,21 @@ export class BooksComponent implements OnInit {
             }
             this.showBookData.push(obj);
           });
-          console.log(this.showBookData);
-          
+          this.booksFound = this.showBookData.length
         })
       }
-      
+
     })
 
-    this.genrefilter.get('genre')?.valueChanges.subscribe((res)=>{
-      if(res == ''){
+    this.genrefilter.get('genre')?.valueChanges.subscribe((res) => {
+      if (res == '') {
         this.showBookData = []
         for (let i = 0; i < this.show; i++) {
           this.showBookData.push(this.bookData[i]);
         }
-      }else{
-        this.ds.getSubject(String(res)).then((response)=>{
+        this.booksFound = this.bookData.length
+      } else {
+        this.ds.getSubject(String(res)).then((response) => {
           this.showBookData = []
           response.forEach((doc) => {
             let obj = {
@@ -118,19 +140,21 @@ export class BooksComponent implements OnInit {
             }
             this.showBookData.push(obj);
           });
+          this.booksFound = this.showBookData.length
         })
         this.show = this.bookData.length
       }
     })
 
-    this.authorfilter.get('author')?.valueChanges.subscribe((res)=>{
-      if(res == ''){
+    this.authorfilter.get('author')?.valueChanges.subscribe((res) => {
+      if (res == '') {
         this.showBookData = []
         for (let i = 0; i < this.show; i++) {
           this.showBookData.push(this.bookData[i]);
         }
-      }else{
-        this.ds.getAuthor(String(res)).then((response)=>{
+        this.booksFound = this.bookData.length
+      } else {
+        this.ds.getAuthor(String(res)).then((response) => {
           this.showBookData = []
           response.forEach((doc) => {
             let obj = {
@@ -139,27 +163,32 @@ export class BooksComponent implements OnInit {
             }
             this.showBookData.push(obj);
           });
+          this.booksFound = this.showBookData.length
         })
+
       }
     })
 
-    this.namefilter.get('name')?.valueChanges.subscribe((res)=>{
-      if(res == ''){
+    this.namefilter.get('name')?.valueChanges.subscribe((res) => {
+      if (res == '') {
         this.showBookData = []
         for (let i = 0; i < this.show; i++) {
           this.showBookData.push(this.bookData[i]);
         }
-      }else{
-        this.ds.getIndividualBook(String(res)).then((response)=>{
+        this.booksFound = this.bookData.length
+      } else {
+        this.ds.getIndividualBook(String(res)).then((response) => {
           this.showBookData = []
           let obj = {
             id: response.id,
             data: response.data()
           }
           this.showBookData.push(obj)
+          this.booksFound = this.showBookData.length
         })
+        
       }
-      
+
     })
 
     this.ds.getBook().then((res) => {
@@ -169,6 +198,7 @@ export class BooksComponent implements OnInit {
           data: doc.data()
         }
         this.bookData.push(obj);
+        this.booksFound = this.bookData.length
       });
       for (let i = 0; i < this.show; i++) {
         this.showBookData.push(this.bookData[i]);
@@ -177,8 +207,8 @@ export class BooksComponent implements OnInit {
 
     this.sort.get('sortby')?.valueChanges.subscribe((res) => {
       console.log(res);
-      
-      if(res == ''){
+
+      if (res == '') {
         this.ds.getBook().then((res) => {
           this.showBookData = []
           this.bookData = []
@@ -192,28 +222,28 @@ export class BooksComponent implements OnInit {
           for (let i = 0; i < this.show; i++) {
             this.showBookData.push(this.bookData[i]);
           }
-    
+
         })
-      }else{
+      } else {
         this.ds.sortBook(String(res))
-        .then((res) => {
-          this.showBookData = []
-          this.bookData = []
-          res.forEach((doc) => {
-            let obj = {
-              id: doc.id,
-              data: doc.data()
+          .then((res) => {
+            this.showBookData = []
+            this.bookData = []
+            res.forEach((doc) => {
+              let obj = {
+                id: doc.id,
+                data: doc.data()
+              }
+              this.bookData.push(obj);
+            });
+            for (let i = 0; i < this.show; i++) {
+              this.showBookData.push(this.bookData[i])
             }
-            this.bookData.push(obj);
-          });
-          for(let i = 0; i < this.show;i++){
-            this.showBookData.push(this.bookData[i])
-          }
-        })
+          })
       }
 
-      
-      
+
+
     })
 
     //Pagination
@@ -237,6 +267,8 @@ export class BooksComponent implements OnInit {
     })
 
   }
+
+
 
 
 

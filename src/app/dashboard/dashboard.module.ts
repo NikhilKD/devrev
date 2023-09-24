@@ -7,13 +7,15 @@ import { DashboardComponent } from './dashboard.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BooksComponent } from './books/books.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     TopbarComponent,
     NavbarComponent,
-    BooksComponent
+    BooksComponent,
+    CartComponent
   ],
   imports: [
     CommonModule,
