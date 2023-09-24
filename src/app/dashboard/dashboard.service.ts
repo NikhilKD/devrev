@@ -86,7 +86,8 @@ export class DashboardService {
     const temp = doc(this.db, "users", name);
     if((await getDoc(temp)).data()===undefined){
         await setDoc(temp,{
-          books: [book]
+          books: [book],
+          issue: []
         }) 
     }else{
       await updateDoc(temp, {
@@ -160,4 +161,6 @@ export class DashboardService {
       });
     }
   }
+
+  
 }

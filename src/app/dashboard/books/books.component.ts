@@ -268,6 +268,25 @@ export class BooksComponent implements OnInit {
 
   }
 
+  
+
+  // Search Bar
+  Search = this.fb.group({
+    searchInput: ['']
+  })
+
+
+  searchedArray: any= []
+
+
+  searchParms(){
+    let searchValue = this.Search.value.searchInput
+    for(let i = 0; i < this.bookData.length; i++){
+      if(searchValue?.toLowerCase() == this.bookData.id.toLowerCase()){
+
+      }
+    }
+  }
 
 
 

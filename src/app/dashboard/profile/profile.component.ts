@@ -15,6 +15,13 @@ export class ProfileComponent implements OnInit {
   username: any;
   issuedBooks: any = []
   issuedBooksNumber = 0
+
+  author: any = []
+  genre: any = []
+
+  authornumbers = 0
+  genrenumber = 0
+  number = 0
   constructor(private ds: DashboardService, @Inject(Auth) private auth: Auth){}
   ngOnInit(): void {
     onAuthStateChanged(this.auth, (user) => {
@@ -24,11 +31,27 @@ export class ProfileComponent implements OnInit {
         for(let i =0;i < res.length; i++){
           this.ds.getIndividualBook(res[i]).then((response)=>{
             this.issuedBooks.push(response.data());
+            this.author.push(response.data()?.['author'])
+            this.genre.push(response.data()?.['subject'])
             this.issuedBooksNumber++
           })
         }
+        this.authornumbers = this.author.length
+        
+        this.genrenumber = 2
+        // console.log([this.genre]);
+        
       })
     });
+
+    this.ds.getBook().then((res)=>{
+      res.forEach((doc) => {
+        this.number++
+      });
+      
+    })
+
+
 
     
   }
@@ -42,13 +65,19 @@ export class ProfileComponent implements OnInit {
         for(let i =0;i < res.length; i++){
           this.ds.getIndividualBook(res[i]).then((response)=>{
             this.issuedBooks.push(response.data());
+            this.author.push(response.data()?.['author'])
+            this.genre.push(response.data()?.['subject'])
             this.issuedBooksNumber++
           })
         }
+        
+        this.genrenumber = 2
       })
     })
 
   }
+
+  
 
 
 
