@@ -5,13 +5,14 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { NavbarComponent } from './navbar/navbar.component';
-
+import { BooksComponent } from './books/books.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     TopbarComponent,
-    NavbarComponent
+    NavbarComponent,
+    BooksComponent
   ],
   imports: [
     CommonModule,
