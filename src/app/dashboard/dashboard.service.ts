@@ -119,7 +119,7 @@ export class DashboardService {
   async issue(name:string){
     const temp = doc(this.db, "users", name);
     const docSnap = await getDoc(temp);
-    let issuedbooks:any = [];
+    let issuedbooks:any = docSnap.data()?.['issue'];
     let x=docSnap.data()?.['books'];
     for(let i=0;i<x.length;i++){
       issuedbooks.push(x[i]);

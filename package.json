@@ -20,6 +20,8 @@
     "@angular/platform-browser-dynamic": "^16.1.0",
     "@angular/router": "^16.1.0",
     "@ng-bootstrap/ng-bootstrap": "^15.1.1",
+    "@ngx-loading-bar/core": "^6.0.2",
+    "@ngx-loading-bar/router": "^6.0.2",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
     "firebase": "^10.4.0",
