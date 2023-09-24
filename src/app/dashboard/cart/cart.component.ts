@@ -41,5 +41,18 @@ export class CartComponent implements OnInit{
     
   }
 
+  issueBook(){
+    this.ds.issue(this.username).then((respose)=>{
+      this.cartBooks = []
+      this.ds.getcartitems(this.username).then((response)=>{
+        for(let i = 0; i < response.length; i++){
+          this.ds.getIndividualBook(response[i]).then((result)=>{
+            this.cartBooks.push(result.data());
+          })
+        }
+      })
+    })
+  }
+
 
 }

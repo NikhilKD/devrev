@@ -8,6 +8,7 @@ import { TopbarComponent } from './topbar/topbar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BooksComponent } from './books/books.component';
 import { CartComponent } from './cart/cart.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { CartComponent } from './cart/cart.component';
     TopbarComponent,
     NavbarComponent,
     BooksComponent,
-    CartComponent
+    CartComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

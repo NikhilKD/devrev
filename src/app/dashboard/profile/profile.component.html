@@ -25,7 +25,7 @@
           <div class="flex items-start justify-between">
             <div class="flex flex-col space-y-2">
               <span class="text-gray-400">Books Issued</span>
-              <span class="text-lg font-semibold">10</span>
+              <span class="text-lg font-semibold">{{issuedBooksNumber}}</span>
             </div>
             <div class="p-10 rounded-md"
               style="background: url(https://i.guim.co.uk/img/media/77e3e93d6571da3a5d77f74be57e618d5d930430/0_0_2560_1536/master/2560.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=c99740fab952ee29d238d75272b98a61) center center no-repeat; background-size: cover;">
@@ -51,7 +51,7 @@
           <div class="flex items-start justify-between">
             <div class="flex flex-col space-y-2">
               <span class="text-gray-400">Genre</span>
-              <span class="text-lg font-semibold">8</span>
+              <span class="text-lg font-semibold">2</span>
             </div>
             <div class="p-10 rounded-md"
               style="background: url(https://static.tvtropes.org/pmwiki/pub/images/genres.png) center center no-repeat; background-size: cover;">
@@ -84,10 +84,6 @@
                   </th>
                   <th scope="col"
                     class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                    Status
-                  </th>
-                  <th scope="col"
-                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                     Year of publishing
                   </th>
                   <th scope="col" class="relative px-6 py-3">
@@ -96,62 +92,27 @@
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
-                <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                <tr *ngFor="let book of issuedBooks" class="transition-all hover:bg-gray-100 hover:shadow-lg">
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-center">
                       <div class="">
-                        <div class="text-sm font-medium text-gray-900">Harry Potter</div>
+                        <div class="text-sm font-medium text-gray-900" #bookname>{{book.name}}</div>
                       </div>
                     </div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-center">
                       <div class="">
-                        <div class="text-sm font-medium text-gray-900">JK Rollin</div>
+                        <div class="text-sm font-medium text-gray-900">{{book.author}}</div>
                       </div>
                     </div>
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">Fiction</div>
+                    <div class="text-sm text-gray-900">{{book.subject}}</div>
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <span
-                      class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                      Active
-                    </span>
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">24/12/23</td>
+                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{{book.date.toDate().toISOString().split('T')[0]}}</td>
                   <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Return</a>
-                  </td>
-                </tr>
-                <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex items-center">
-                      <div class="">
-                        <div class="text-sm font-medium text-gray-900">Harry Potter</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="flex items-center">
-                      <div class="">
-                        <div class="text-sm font-medium text-gray-900">JK Rollin</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">Fiction</div>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap">
-                    <span
-                      class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                      Active
-                    </span>
-                  </td>
-                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">24/12/23</td>
-                  <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Return</a>
+                    <button class="text-indigo-600 hover:text-indigo-900" (click)="returnbook(bookname.innerHTML)">Return</button>
                   </td>
                 </tr>
               </tbody>

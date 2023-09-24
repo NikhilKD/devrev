@@ -109,11 +109,21 @@ export class DashboardService {
     return docSnap.data()?.['books'];
   }
 
+  async getissueditems(name:string) {
+    const docRef = doc(this.db, "users", name);
+    const docSnap = await getDoc(docRef);
+    return docSnap.data()?.['issue'];
+  }
+
 
   async issue(name:string){
     const temp = doc(this.db, "users", name);
     const docSnap = await getDoc(temp);
-    let issuedbooks=docSnap.data()?.['books'];
+    let issuedbooks:any = [];
+    let x=docSnap.data()?.['books'];
+    for(let i=0;i<x.length;i++){
+      issuedbooks.push(x[i]);
+    }
     await updateDoc(temp, {
       books: [],
       issue:issuedbooks
@@ -130,6 +140,24 @@ export class DashboardService {
           status:false
         });
       }
+    }
+  }
+
+  async returnbook(name:string,book:string){
+    const temp = doc(this.db, "users", name);
+    await updateDoc(temp, {
+      issue: arrayRemove(book)
+    });
+    const temp1 = doc(this.db, "books", book);
+    await updateDoc(temp1, {
+      copies: increment(1)
+    });
+    const docSnap = await getDoc(temp1);
+    let count=docSnap.data()?.['copies'];
+    if(count>0){
+      await updateDoc(temp1, {
+        status:true
+      });
     }
   }
 }
